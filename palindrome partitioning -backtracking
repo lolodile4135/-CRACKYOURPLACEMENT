@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans=new ArrayList<>();
+        f(0,ans,s,new ArrayList<>());
+        return ans;
+    }
+    public static void f(int idx,List<List<String>> ans,String s,List<String> ds){
+        if(idx==s.length()){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i=idx;i<s.length();i++){
+            
+            if(isPalindrome(s,idx,i)==true){
+                ds.add(s.substring(idx,i+1));
+                f(i+1,ans,s,ds);
+                ds.remove(ds.size()-1);
+            }
+            
+        }
+    }
+    public static boolean isPalindrome(String s,int i,int j){
+         
+         while(i<=j){
+            if(s.charAt(i)!=s.charAt(j)){
+                return false;
+            }else{
+                i++;j--;
+            }
+         }
+         return true;
+    }
+}
