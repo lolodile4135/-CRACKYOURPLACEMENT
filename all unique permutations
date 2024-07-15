@@ -1,0 +1,39 @@
+class Solution {
+    static ArrayList<ArrayList<Integer>> uniquePerms(ArrayList<Integer> arr , int n) {
+        // code here
+        Collections.sort(arr);
+        ArrayList<ArrayList<Integer>> ds=new ArrayList<>();
+        boolean v[]=new boolean[arr.size()];
+        perm(arr,ds,new ArrayList<>(),0,v);
+        return ds;
+        
+    }
+    public static void perm(ArrayList<Integer> arr,ArrayList<ArrayList<Integer>> ds, ArrayList<Integer> a,int idx,boolean v[]){
+        if(idx==arr.size()){
+            ds.add(new ArrayList<>(a));
+            return ;
+        }
+        
+        for(int i=0;i<arr.size();i++){
+            if(v[i]==false){
+                if(i>0){
+                    if(arr.get(i)!=arr.get(i-1) || v[i-1]==true){
+                    a.add(arr.get(i));
+                    v[i]=true;
+                    perm(arr,ds,a,idx+1,v);
+                    v[i]=false;
+                    a.remove(a.size()-1);
+                        
+                    }
+                }else{
+                    a.add(arr.get(i));
+                    v[i]=true;
+                    perm(arr,ds,a,idx+1,v);
+                    v[i]=false;
+                    a.remove(a.size()-1);
+                }
+            }
+            
+        }
+    }
+};
