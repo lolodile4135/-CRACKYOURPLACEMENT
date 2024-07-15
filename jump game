@@ -1,0 +1,13 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+       if(nums[0]==0 && nums.length>1){
+           return false;
+       } 
+       int rechable=0;
+       for(int i=0;i<nums.length;i++){
+           if(rechable<i)return false;
+           rechable=Math.max(rechable,i+nums[i]);
+       }
+       return true;
+    }
+}
