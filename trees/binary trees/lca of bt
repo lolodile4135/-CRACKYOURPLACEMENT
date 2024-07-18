@@ -1,0 +1,21 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null){
+            return null;
+        }
+        if(root==p || root==q){
+            return root;
+        }
+        TreeNode llcf=lowestCommonAncestor(root.left,p,q);
+        TreeNode rlcf=lowestCommonAncestor(root.right,p,q);
+        if(llcf==null){
+            return rlcf;
+        }else if(rlcf==null){
+            return llcf;
+        }else{
+            return root;
+        }
+        
+
+    }
+}
