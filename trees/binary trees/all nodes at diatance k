@@ -1,0 +1,44 @@
+class Solution {
+    
+
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        HashMap<TreeNode, TreeNode> parent_Track = new HashMap<>();
+        Queue<TreeNode> m = new LinkedList<>();
+        m.offer(root);
+        while (!m.isEmpty()) {
+            TreeNode node = m.remove();
+            if (node.left != null) {
+                m.offer(node.left);
+                parent_Track.put(node.left, node);
+            }
+            if (node.right != null) {
+                m.offer(node.right);
+                parent_Track.put(node.right, node);
+            }
+        }
+        HashMap<TreeNode, Boolean> vis = new HashMap<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(target);
+        while (!q.isEmpty()) {
+            TreeNode node = q.remove();
+            if (node.right != null && !vis.containsKey(node.right)) {
+                q.offer(node.right);
+                vis.put(node.right, true);
+            }
+            if (node.left != null && !vis.containsKey(node.left)) {
+                q.offer(node.right);
+                vis.put(node.left, true);
+            }
+            if (parent_Track.get(node) != null && !vis.containsKey(parent_Track.get(node))) {
+                q.offer(parent_Track.get(node));
+                vis.put(parent_Track.get(node), true);
+            }
+        }
+        List<Integer> l = new ArrayList<>();
+        while (!q.isEmpty()) {
+            l.add(q.remove().val);
+        }
+        return l;
+
+    }
+}
